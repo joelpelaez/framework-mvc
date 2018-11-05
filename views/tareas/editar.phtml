@@ -1,0 +1,26 @@
+<h1>Editar tarea</h1>
+<?php $tarea = $this->tarea ?>
+<form action="<?= APP_URL."tareas/editar"; ?>" method="post">
+    <input type="hidden" name="id" value="<?= $tarea['id']; ?>">
+
+    <label for="nombre">Nombre</label>
+    <input type="text" name="nombre" id="nombre" value="<?= $tarea['nombre']; ?>">
+    <br>
+    <label for="descripcion">Descripcion</label>
+    <textarea name="descripcion" id="descripcion"><?= $tarea['descripcion']; ?></textarea>
+    <br>
+    <label for="fecha">Fecha</label>
+    <input type="date" name="fecha" id="fecha" value="<?= $tarea['fecha']; ?>">
+    <br>
+    <label for="prioridad">Prioridad</label>
+    <input type="range" name="prioridad" id="prioridad" min="0" max="10" value="<?= $tarea['prioridad']; ?>">
+    <br>
+    <label for="categoria">Categoria</label>
+    <select name="categoria_id" id="categoria">
+        <?php foreach ($this->categorias as $categoria): ?>
+            <option value="<?= $categoria["id"] ?>" <?= $categoria['id'] === $tarea['categoria_id'] ? 'selected' : ''?>><?= $categoria["nombre"] ?></option>
+        <?php endforeach; ?>
+    </select>
+    <br>
+    <input type="submit" value="Guardar">
+</form>

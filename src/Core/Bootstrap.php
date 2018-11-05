@@ -1,0 +1,34 @@
+<?php
+
+namespace App\Core;
+
+/**
+ * Class Bootstrap
+ *
+ * Realiza la inicialización de la aplicación basado en la solicitud URL
+ * hecha al servidor.
+ *
+ * @package App\Core
+ */
+class Bootstrap
+{
+    public static function run(Request $peticion){
+        $controller = "App\\Controller\\".$peticion->getControlador()."Controller";
+        $metodo = $peticion->getMetodo();
+        $args = $peticion->getArgs();
+        $controller = new $controller;
+
+        if (is_callable(array($controller, $metodo))) {
+            $metodo = $peticion->getMetodo();
+        }else{
+            $metodo = "index";
+        }
+
+        if (isset($args)) {
+            call_user_func_array(array($controller, $metodo), $peticion->getArgs());
+        }else{
+            call_user_func(array($controller, $metodo));
+        }
+    }
+}
+

@@ -1,0 +1,71 @@
+<?php
+
+namespace App\Core;
+
+use App\FlashMessages;
+
+abstract class AppController
+{
+    /**
+     * @var View
+     */
+    protected $_view;
+
+    /**
+     * @var FlashMessages
+     */
+    protected $_messages;
+
+    public function __construct(){
+        $this->_view = new View(new Request);
+        $this->_messages = new FlashMessages();
+    }
+
+    /**
+     * Acción por defecto del controlador.
+     *
+     * Permite ejecutar la acción predeterminada de un controlador,
+     * es requerido en cada implementación de la clase.
+     *
+     * @return mixed
+     * @throws \Exception
+     */
+    abstract function index();
+
+    /**
+     * Carga dinámica de las clases Model.
+     *
+     * Permite cargar una clase Model basado en el nombre de la tabla que hace referencia.
+     *
+     * @param string $modelo Nombre de una tabla con un modelo definido.
+     * @return AppModel Una implementación de una clase Model.
+     */
+    protected function loadModel($modelo){
+        $modelo = "App\\Model\\".$modelo."Model";
+        $modelo = new $modelo;
+        return $modelo;
+    }
+
+    /**
+     * Realiza una redirección falsa a otro controlador.
+     *
+     * Permite obtener el destino del controlador y la acción definidas.
+     *
+     * @param array $url Un array con las clave 'action' y 'controller' con los respectivos valores.
+     * @return string La dirección URL del recurso solicitado.
+     */
+    public function redirect($url = array()) {
+        $path = "";
+
+        if (array_key_exists("controller", $url)) {
+            $path .= $url['controller'];
+        }
+
+        if (array_key_exists("action", $url)) {
+            $path .= $url['action'];
+        }
+
+        //header("Location: ".APP_URL.$path);
+        return APP_URL.$path;
+    }
+}

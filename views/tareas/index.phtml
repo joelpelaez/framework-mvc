@@ -1,0 +1,47 @@
+
+<div class="row">
+    <div class="col-8">
+        <h2>Lista de tareas</h2>
+    </div>
+    <div class="col-4">
+        <div class="text-right" style="vertical-align: center">
+            <a class="btn btn-primary" href="<?= APP_URL."tareas/agregar" ?>">Agregar</a>
+        </div>
+    </div>
+</div>
+
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Fecha</th>
+        <th>Prioridad</th>
+        <th>Categoria</th>
+        <th>Acción</th>
+    </tr>
+    <?php foreach ($this->tareas as $tarea): ?>
+        <tr>
+            <td><?php echo $tarea["id"]; ?></td>
+            <td <?= $tarea['status'] == 1 ? 'style="text-decoration: line-through"' : ''?>><?php echo $tarea["nombre"]; ?></td>
+            <td><?php $date = new \DateTime($tarea["fecha"]); echo $date->format('d/m/Y'); ?></td>
+            <td>
+                <?php
+                if ($tarea['prioridad'] <= 3):
+                    echo '<span class="text-success">Baja</span>';
+                elseif ($tarea['prioridad'] <= 6):
+                    echo '<span class="text-warning">Media</span>';
+                else:
+                    echo '<span class="text-danger">Alta</span>';
+                endif
+                ?>
+            </td>
+            <td><?= $tarea['categoria']; ?></td>
+            <td><a class="btn btn-sm btn-info" href="<?= APP_URL."tareas/editar/".$tarea['id']; ?>">Editar</a>
+                | <a class="btn btn-sm btn-danger" href="<?= APP_URL."tareas/eliminar/".$tarea['id']; ?>">Eliminar</a>
+                | <a class="btn btn-sm btn-secondary" href="<?= APP_URL."tareas/cambiarEstado/".$tarea['id'] ?>">
+                    <?= $tarea['status'] == 0 ? 'Abrir' : 'Cerrar' ?>
+                </a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</table>
