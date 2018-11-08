@@ -1,0 +1,28 @@
+<div class="row">
+    <div class="col-8">
+        <h2>Lista de tareas</h2>
+    </div>
+    <div class="col-4">
+        <div class="text-right" style="vertical-align: center">
+            <a class="btn btn-primary" href="<?= APP_URL."categorias/agregar" ?>">Agregar</a>
+        </div>
+    </div>
+</div>
+
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Acción</th>
+    </tr>
+    <?php foreach ($this->categorias as $tarea): ?>
+        <tr>
+            <td><?php echo $tarea["id"]; ?></td>
+            <td><?php echo $tarea["nombre"]; ?></td>
+
+            <td><a class="btn btn-sm btn-info" href="<?= APP_URL."categorias/editar/".$tarea['id']; ?>">Editar</a>
+                <a class="btn btn-sm btn-danger" href="<?= APP_URL."categorias/eliminar/".$tarea['id']; ?>">Eliminar</a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</table>

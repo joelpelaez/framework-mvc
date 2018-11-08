@@ -36,9 +36,10 @@
                 ?>
             </td>
             <td><?= $tarea['categoria']; ?></td>
-            <td><a class="btn btn-sm btn-info" href="<?= APP_URL."tareas/editar/".$tarea['id']; ?>">Editar</a>
-                | <a class="btn btn-sm btn-danger" href="<?= APP_URL."tareas/eliminar/".$tarea['id']; ?>">Eliminar</a>
-                | <a class="btn btn-sm btn-secondary" href="<?= APP_URL."tareas/cambiarEstado/".$tarea['id'] ?>">
+            <td>
+                <a class="btn btn-sm btn-info" href="<?= APP_URL."tareas/editar/".$tarea['id']; ?>">Editar</a>
+                <a class="btn btn-sm btn-danger" href="<?= APP_URL."tareas/eliminar/".$tarea['id']; ?>">Eliminar</a>
+                <a class="btn btn-sm btn-secondary" href="<?= APP_URL."tareas/cambiarEstado/".$tarea['id'] ?>">
                     <?= $tarea['status'] == 0 ? 'Abrir' : 'Cerrar' ?>
                 </a>
             </td>

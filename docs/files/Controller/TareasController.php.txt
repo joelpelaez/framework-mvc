@@ -73,8 +73,8 @@ class TareasController extends AppController
              */
             $tarea = $this->loadModel("tarea");
             $tarea->update($_POST);
-            $this->_view->flashMessage = "Datos guardados correctamente";
-            $this->redirect(["controller"=>"tareas"]);
+            $this->_messages->success('Tarea editada correctamente', $this->redirect(["controller"=>"tareas"]));
+            return;
         }
         $id = (int) $id;
         /**
@@ -107,7 +107,7 @@ class TareasController extends AppController
 
         if (!empty($registro)) {
             $tarea->delete($id);
-            $this->redirect(['controller' => 'tareas']);
+            $this->_messages->success('Tarea eliminada correctamente', $this->redirect(['controller' => 'tareas']));
         }
     }
 
@@ -125,7 +125,7 @@ class TareasController extends AppController
          */
         $tareas = $this->loadModel("tarea");
         $tareas->changeState($id);
-        $this->redirect(['controller' => 'tareas']);
+        $this->_messages->success('La tarea ha cambiado de estado', $this->redirect(['controller' => 'tareas']));
     }
 }
 
